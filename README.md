@@ -15,6 +15,8 @@ Spawn Holo
 
 ```java
 Holo holo = new Holo(UUID.randomUUID(), "§6Test")
-    .setLocation(loc);
+        .setLocation(new Location(event.getPlayer().getWorld(), 0, 0, 0, 0, 0))
+        .addLine("§bThis is a new line")
+        .addLine("§aLine 3");
 HoloManager.spawnHolo(holo, event.getPlayer());
 ```
