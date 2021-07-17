@@ -23,6 +23,9 @@ public class HoloManager {
 	public static void hideHolo(Player p, Holo holo) {
 		PlayerConnection connection = ((CraftPlayer) p).getHandle().playerConnection;
 		connection.sendPacket(new PacketPlayOutEntityDestroy(holo.getEntityId()));
+		
+		for (EntityArmorStand line : holo.getLines())
+			connection.sendPacket(new PacketPlayOutEntityDestroy(line.getId()));
 	}
 	
 	/**
@@ -33,6 +36,9 @@ public class HoloManager {
 	public static void reloadHolo(Player p, Holo holo) {
 		PlayerConnection connection = ((CraftPlayer) p).getHandle().playerConnection;
 		connection.sendPacket(new PacketPlayOutSpawnEntityLiving(holo.getEntity()));
+		
+		for (EntityArmorStand line : holo.getLines())
+			connection.sendPacket(new PacketPlayOutSpawnEntityLiving(line));
 	}
 	
 	/**
@@ -44,7 +50,7 @@ public class HoloManager {
 		WorldServer s = ((CraftWorld) holo.getLocation().getWorld()).getHandle();
 		
 		EntityArmorStand holoEntity = new EntityArmorStand(s);
-		holoEntity.setLocation(holo.getLocation().getX(), holo.getLocation().getY(), holo.getLocation().getZ(), holo.getLocation().getYaw(), holo.getLocation().getPitch());
+		holoEntity.setLocation(holo.getLocation().getX(), holo.getLocation().getY(), holo.getLocation().getZ(), 0, 0);
 		holoEntity.setCustomName(holo.getName());
 		holoEntity.setCustomNameVisible(true);
 		holoEntity.setInvisible(true);
@@ -59,6 +65,9 @@ public class HoloManager {
 		
 		PlayerConnection connection = ((CraftPlayer) p).getHandle().playerConnection;
 		connection.sendPacket(new PacketPlayOutSpawnEntityLiving(holo.getEntity()));
+		
+		for (EntityArmorStand line : holo.getLines())
+			connection.sendPacket(new PacketPlayOutSpawnEntityLiving(line));
 	}
 	
 	/**
@@ -69,6 +78,9 @@ public class HoloManager {
 	public static void deleteHolo(Player p, Holo holo) {
 		PlayerConnection connection = ((CraftPlayer) p).getHandle().playerConnection;
 		connection.sendPacket(new PacketPlayOutEntityDestroy(holo.getEntityId()));
+		
+		for (EntityArmorStand line : holo.getLines())
+			connection.sendPacket(new PacketPlayOutEntityDestroy(line.getId()));
 		
 		APlayer ap = APlayer.get(p);
 		ap.holos.remove(holo);
