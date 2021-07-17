@@ -2,9 +2,7 @@ package com.blackout.holoapi.main;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
-import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
