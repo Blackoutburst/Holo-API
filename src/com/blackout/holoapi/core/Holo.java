@@ -81,7 +81,7 @@ public class Holo {
 		WorldServer s = ((CraftWorld) this.getLocation().getWorld()).getHandle();
 		
 		EntityArmorStand holoEntity = new EntityArmorStand(s);
-		holoEntity.setLocation(this.getLocation().getX(), this.getLocation().getY() + (0.25 * (this.getLines().size() + 1)), this.getLocation().getZ(), 0, 0);
+		holoEntity.setLocation(this.getLocation().getX(), this.getLocation().getY() - (0.25 * (this.getLines().size() + 1)), this.getLocation().getZ(), 0, 0);
 		holoEntity.setCustomName(line);
 		holoEntity.setCustomNameVisible(true);
 		holoEntity.setInvisible(true);
