@@ -51,7 +51,8 @@ public class Holo {
 	}
 
 	public Holo setLocation(Player player, Location location) {
-		NMSEntityTeleport.send(player, this.getEntity(), location.getX(), location.getY(), location.getZ());
+		if (this.getEntity() != null)
+			NMSEntityTeleport.send(player, this.getEntity(), location.getX(), location.getY(), location.getZ());
 
 		this.location = location;
 		return (this);
