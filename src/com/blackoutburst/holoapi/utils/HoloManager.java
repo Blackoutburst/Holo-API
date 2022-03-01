@@ -3,18 +3,10 @@ package com.blackoutburst.holoapi.utils;
 import com.blackoutburst.holoapi.nms.NMSEntities;
 import com.blackoutburst.holoapi.nms.NMSEntityDestroy;
 import com.blackoutburst.holoapi.nms.NMSSpawnEntityLiving;
-import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
-import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 import com.blackoutburst.holoapi.core.APlayer;
 import com.blackoutburst.holoapi.core.Holo;
-
-import net.minecraft.server.v1_8_R3.EntityArmorStand;
-import net.minecraft.server.v1_8_R3.PacketPlayOutEntityDestroy;
-import net.minecraft.server.v1_8_R3.PacketPlayOutSpawnEntityLiving;
-import net.minecraft.server.v1_8_R3.PlayerConnection;
-import net.minecraft.server.v1_8_R3.WorldServer;
 
 import java.lang.reflect.Method;
 
