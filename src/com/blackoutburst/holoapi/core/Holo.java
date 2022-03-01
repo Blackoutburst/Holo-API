@@ -6,8 +6,11 @@ import java.util.List;
 import java.util.UUID;
 
 import com.blackoutburst.holoapi.nms.NMSEntities;
+import com.blackoutburst.holoapi.nms.NMSEntityMetadata;
+import com.blackoutburst.holoapi.nms.NMSEntityTeleport;
 import com.blackoutburst.holoapi.utils.HoloManager;
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
 
 public class Holo {
 
@@ -29,7 +32,17 @@ public class Holo {
 		return name;
 	}
 
-	public Holo setName(String name) {
+	public Holo setName(Player player, String name) {
+		try {
+			final Method setCustomName = this.getEntity().getClass().getMethod("setCustomName", String.class);
+
+			setCustomName.invoke(this.getEntity(), name);
+
+			NMSEntityMetadata.send(player, this.getEntity());
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+
 		this.name = name;
 		return (this);
 	}
@@ -38,7 +51,9 @@ public class Holo {
 		return location;
 	}
 
-	public Holo setLocation(Location location) {
+	public Holo setLocation(Player player, Location location) {
+		NMSEntityTeleport.send(player, this.getEntity(), location.getX(), location.getY(), location.getZ());
+
 		this.location = location;
 		return (this);
 	}
@@ -47,9 +62,8 @@ public class Holo {
 		return entity;
 	}
 
-	public Holo setEntity(NMSEntities entity) {
+	public void setEntity(NMSEntities entity) {
 		this.entity = entity;
-		return (this);
 	}
 
 	public UUID getUUID() {
@@ -60,11 +74,6 @@ public class Holo {
 		return lines;
 	}
 
-	public Holo setLines(List<NMSEntities> lines) {
-		this.lines = lines;
-		return (this);
-	}
-	
 	public Holo addLine(String line) {
 		try {
 			final NMSEntities entity = new NMSEntities(this.getLocation().getWorld(), NMSEntities.EntityType.ARMOR_STAND);
