@@ -17,7 +17,7 @@ public class NMSEntityDestroy {
         try {
             final Class<?> packetClass = NMS.getClass("PacketPlayOutEntityDestroy");
 
-            final Constructor<?> packetConstructor = packetClass.getConstructors()[0];
+            final Constructor<?> packetConstructor = packetClass.getConstructor();
 
             final Object packet = packetConstructor.newInstance();
 
