@@ -1,6 +1,7 @@
 package com.blackoutburst.holoapi.utils;
 
 import com.blackoutburst.holoapi.nms.NMSEntities;
+import com.blackoutburst.holoapi.nms.NMSEntityDestroy;
 import com.blackoutburst.holoapi.nms.NMSSpawnEntityLiving;
 import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
@@ -51,9 +52,7 @@ public class HoloManager {
 			setInvisible.invoke(entity.getEntity(), true);
 			setSmall.invoke(entity.getEntity(), true);
 
-			holo.setEntityId(entity.getID())
-				.setEntity(entity);
-
+			holo.setEntity(entity);
 
 			APlayer ap = APlayer.get(p);
 			if (ap != null) {
@@ -72,11 +71,10 @@ public class HoloManager {
 	}
 	
 	public static void deleteHolo(Player p, Holo holo) {
-		PlayerConnection connection = ((CraftPlayer) p).getHandle().playerConnection;
-		connection.sendPacket(new PacketPlayOutEntityDestroy(holo.getEntityId()));
-		
-		for (EntityArmorStand line : holo.getLines())
-			connection.sendPacket(new PacketPlayOutEntityDestroy(line.getId()));
+		NMSEntityDestroy.send(p, holo.getEntity().getID());
+
+		for (NMSEntities line : holo.getLines())
+			NMSEntityDestroy.send(p, line.getID());
 		
 		APlayer ap = APlayer.get(p);
 		if (ap != null) {

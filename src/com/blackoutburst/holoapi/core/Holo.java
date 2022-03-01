@@ -16,7 +16,6 @@ public class Holo {
 	protected UUID uuid;
 	protected String name;
 	protected Location location;
-	protected int entityId;
 	protected NMSEntities entity;
 	protected List<NMSEntities> lines;
 	
@@ -44,15 +43,6 @@ public class Holo {
 
 	public Holo setLocation(Location location) {
 		this.location = location;
-		return (this);
-	}
-
-	public int getEntityId() {
-		return entityId;
-	}
-
-	public Holo setEntityId(int entityId) {
-		this.entityId = entityId;
 		return (this);
 	}
 
