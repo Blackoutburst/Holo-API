@@ -12,21 +12,39 @@ import java.lang.reflect.Method;
 
 public class HoloManager {
 
+	/**
+	 * Make the holo and all his lines disappear
+	 *
+	 * @param p the player that will receive the packets
+	 * @param holo the holo you wish to hide
+	 */
 	public static void hideHolo(Player p, Holo holo) {
 		NMSEntityDestroy.send(p, holo.getEntity().getID());
 
 		for (NMSEntities line : holo.getLines())
 			NMSEntityDestroy.send(p, line.getID());
 	}
-	
+
+	/**
+	 * Make a holo and all his lines appear
+	 *
+	 * @param p the player that will receive the packet
+	 * @param holo the holo you want to make appear
+	 */
 	public static void reloadHolo(Player p, Holo holo) {
 		NMSSpawnEntityLiving.send(p, holo.getEntity());
 
 		for (NMSEntities line : holo.getLines())
 			NMSSpawnEntityLiving.send(p, line);
 	}
-	
-	public static void spawnHolo(Holo holo, Player p) {
+
+	/**
+	 * Create a new Holo
+	 *
+	 * @param p the player that will receive the packets
+	 * @param holo the holo configuration
+	 */
+	public static void spawnHolo(Player p, Holo holo) {
 		try {
 			final NMSEntities entity = new NMSEntities(p.getWorld(), NMSEntities.EntityType.ARMOR_STAND);
 
@@ -59,7 +77,13 @@ public class HoloManager {
 			e.printStackTrace();
 		}
 	}
-	
+
+	/**
+	 * Delete a holo
+	 *
+	 * @param p the player that will receive the packet
+	 * @param holo the holo you wish to delete
+	 */
 	public static void deleteHolo(Player p, Holo holo) {
 		NMSEntityDestroy.send(p, holo.getEntity().getID());
 
