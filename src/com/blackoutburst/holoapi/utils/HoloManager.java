@@ -1,11 +1,11 @@
-package com.blackout.holoapi.utils;
+package com.blackoutburst.holoapi.utils;
 
 import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
-import com.blackout.holoapi.core.APlayer;
-import com.blackout.holoapi.core.Holo;
+import com.blackoutburst.holoapi.core.APlayer;
+import com.blackoutburst.holoapi.core.Holo;
 
 import net.minecraft.server.v1_8_R3.EntityArmorStand;
 import net.minecraft.server.v1_8_R3.PacketPlayOutEntityDestroy;

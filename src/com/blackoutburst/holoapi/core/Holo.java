@@ -1,4 +1,4 @@
-package com.blackout.holoapi.core;
+package com.blackoutburst.holoapi.core;
 
 import java.util.ArrayList;
 import java.util.List;

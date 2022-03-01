@@ -1,4 +1,4 @@
-package com.blackout.holoapi.core;
+package com.blackoutburst.holoapi.core;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,7 +8,7 @@ import java.util.UUID;
 
 import org.bukkit.entity.Player;
 
-import com.blackout.holoapi.main.Main;
+import com.blackoutburst.holoapi.main.Main;
 
 public class APlayer {
 

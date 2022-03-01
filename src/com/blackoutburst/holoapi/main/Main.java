@@ -1,4 +1,4 @@
-package com.blackout.holoapi.main;
+package com.blackoutburst.holoapi.main;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,9 +11,9 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.blackout.holoapi.core.APlayer;
-import com.blackout.holoapi.core.Holo;
-import com.blackout.holoapi.utils.HoloManager;
+import com.blackoutburst.holoapi.core.APlayer;
+import com.blackoutburst.holoapi.core.Holo;
+import com.blackoutburst.holoapi.utils.HoloManager;
 
 public class Main extends JavaPlugin implements Listener {
 
