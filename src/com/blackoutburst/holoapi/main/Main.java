@@ -44,13 +44,13 @@ public class Main extends JavaPlugin implements Listener {
 			final double y = playerY - holoY;
 			final double z = playerZ - holoZ;
 
-			final boolean distance = ((x * x) + (y * y) + (z * z)) >= 5000;
+			final double distance = ((x * x) + (y * y) + (z * z));
 			
-			if (distance && ap.holosVisible.get(holo.getUUID())) {
+			if (distance >= 5000D && ap.holosVisible.get(holo.getUUID())) {
 				HoloManager.hideHolo(event.getPlayer(), holo);
 				ap.holosVisible.put(holo.getUUID(), false);
 			}
-			if (distance && !ap.holosVisible.get(holo.getUUID())) {
+			if (distance < 5000D && !ap.holosVisible.get(holo.getUUID())) {
 				HoloManager.reloadHolo(event.getPlayer(), holo);
 				ap.holosVisible.put(holo.getUUID(), true);
 			}
