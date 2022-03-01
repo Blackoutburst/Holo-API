@@ -21,19 +21,17 @@ import java.lang.reflect.Method;
 public class HoloManager {
 
 	public static void hideHolo(Player p, Holo holo) {
-		PlayerConnection connection = ((CraftPlayer) p).getHandle().playerConnection;
-		connection.sendPacket(new PacketPlayOutEntityDestroy(holo.getEntityId()));
-		
-		for (EntityArmorStand line : holo.getLines())
-			connection.sendPacket(new PacketPlayOutEntityDestroy(line.getId()));
+		NMSEntityDestroy.send(p, holo.getEntity().getID());
+
+		for (NMSEntities line : holo.getLines())
+			NMSEntityDestroy.send(p, line.getID());
 	}
 	
 	public static void reloadHolo(Player p, Holo holo) {
-		PlayerConnection connection = ((CraftPlayer) p).getHandle().playerConnection;
-		connection.sendPacket(new PacketPlayOutSpawnEntityLiving(holo.getEntity()));
-		
-		for (EntityArmorStand line : holo.getLines())
-			connection.sendPacket(new PacketPlayOutSpawnEntityLiving(line));
+		NMSSpawnEntityLiving.send(p, holo.getEntity());
+
+		for (NMSEntities line : holo.getLines())
+			NMSSpawnEntityLiving.send(p, line);
 	}
 	
 	public static void spawnHolo(Holo holo, Player p) {
