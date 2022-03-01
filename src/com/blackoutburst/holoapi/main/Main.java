@@ -3,6 +3,7 @@ package com.blackoutburst.holoapi.main;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -26,20 +27,30 @@ public class Main extends JavaPlugin implements Listener {
 	
 	@EventHandler
 	public void onMoveEvent(PlayerMoveEvent event) {
-		APlayer ap = APlayer.get(event.getPlayer());
+		final Player player = event.getPlayer();
+		final APlayer ap = APlayer.get(player);
 		if (ap == null) return;
 
-		for (Holo holo : ap.holos) {
-			double distance = Math.sqrt(
-					Math.pow(event.getPlayer().getLocation().getX() - holo.getLocation().getX(), 2) +
-					Math.pow(event.getPlayer().getLocation().getY() - holo.getLocation().getY(), 2) +
-					Math.pow(event.getPlayer().getLocation().getZ() - holo.getLocation().getZ(), 2));
+		final double playerX = player.getLocation().getX();
+		final double playerY = player.getLocation().getY();
+		final double playerZ = player.getLocation().getZ();
+
+		for (final Holo holo : ap.holos) {
+			final double holoX = holo.getLocation().getX();
+			final double holoY = holo.getLocation().getY();
+			final double holoZ = holo.getLocation().getZ();
+
+			final double x = playerX - holoX;
+			final double y = playerY - holoY;
+			final double z = playerZ - holoZ;
+
+			final boolean distance = ((x * x) + (y * y) + (z * z)) >= 5000;
 			
-			if (distance > 70 && ap.holosVisible.get(holo.getUUID())) {
+			if (distance && ap.holosVisible.get(holo.getUUID())) {
 				HoloManager.hideHolo(event.getPlayer(), holo);
 				ap.holosVisible.put(holo.getUUID(), false);
 			}
-			if (distance < 70 && !ap.holosVisible.get(holo.getUUID())) {
+			if (distance && !ap.holosVisible.get(holo.getUUID())) {
 				HoloManager.reloadHolo(event.getPlayer(), holo);
 				ap.holosVisible.put(holo.getUUID(), true);
 			}
