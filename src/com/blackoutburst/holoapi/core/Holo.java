@@ -25,7 +25,7 @@ public class Holo {
 		this.location = null;
 		this.entityId = -1;
 		this.entity = null;
-		this.lines = new ArrayList<EntityArmorStand>();
+		this.lines = new ArrayList<>();
 	}
 
 	public String getName() {

@@ -15,11 +15,6 @@ import net.minecraft.server.v1_8_R3.WorldServer;
 
 public class HoloManager {
 
-	/**
-	 * Destroy the Holo when the player get too far from it
-	 * @param p
-	 * @param holo
-	 */
 	public static void hideHolo(Player p, Holo holo) {
 		PlayerConnection connection = ((CraftPlayer) p).getHandle().playerConnection;
 		connection.sendPacket(new PacketPlayOutEntityDestroy(holo.getEntityId()));
@@ -28,11 +23,6 @@ public class HoloManager {
 			connection.sendPacket(new PacketPlayOutEntityDestroy(line.getId()));
 	}
 	
-	/**
-	 * Respawn the Holo when the player get close enough to it
-	 * @param p
-	 * @param holo
-	 */
 	public static void reloadHolo(Player p, Holo holo) {
 		PlayerConnection connection = ((CraftPlayer) p).getHandle().playerConnection;
 		connection.sendPacket(new PacketPlayOutSpawnEntityLiving(holo.getEntity()));
@@ -41,11 +31,6 @@ public class HoloManager {
 			connection.sendPacket(new PacketPlayOutSpawnEntityLiving(line));
 	}
 	
-	/**
-	 * Spawn the Holo when at a specific location
-	 * @param holo
-	 * @param p
-	 */
 	public static void spawnHolo(Holo holo, Player p) {
 		WorldServer s = ((CraftWorld) holo.getLocation().getWorld()).getHandle();
 		
@@ -60,9 +45,11 @@ public class HoloManager {
 		.setEntity(holoEntity);
 		
 		APlayer ap = APlayer.get(p);
-		ap.holos.add(holo);
-		ap.holosVisible.put(holo.getUUID(), true);
-		
+		if (ap != null) {
+			ap.holos.add(holo);
+			ap.holosVisible.put(holo.getUUID(), true);
+		}
+
 		PlayerConnection connection = ((CraftPlayer) p).getHandle().playerConnection;
 		connection.sendPacket(new PacketPlayOutSpawnEntityLiving(holo.getEntity()));
 		
@@ -70,11 +57,6 @@ public class HoloManager {
 			connection.sendPacket(new PacketPlayOutSpawnEntityLiving(line));
 	}
 	
-	/**
-	 * Remove a Holo
-	 * @param p
-	 * @param holo
-	 */
 	public static void deleteHolo(Player p, Holo holo) {
 		PlayerConnection connection = ((CraftPlayer) p).getHandle().playerConnection;
 		connection.sendPacket(new PacketPlayOutEntityDestroy(holo.getEntityId()));
@@ -83,7 +65,9 @@ public class HoloManager {
 			connection.sendPacket(new PacketPlayOutEntityDestroy(line.getId()));
 		
 		APlayer ap = APlayer.get(p);
-		ap.holos.remove(holo);
-		ap.holosVisible.remove(holo.getUUID());
+		if (ap != null) {
+			ap.holos.remove(holo);
+			ap.holosVisible.remove(holo.getUUID());
+		}
 	}
 }

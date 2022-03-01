@@ -18,8 +18,8 @@ public class APlayer {
 	
 	public APlayer (Player player) {
 		this.player = player;
-		this.holosVisible = new HashMap<UUID, Boolean>();
-		this.holos = new ArrayList<Holo>();
+		this.holosVisible = new HashMap<>();
+		this.holos = new ArrayList<>();
 	}
 	
 	public static APlayer get(Player player) {

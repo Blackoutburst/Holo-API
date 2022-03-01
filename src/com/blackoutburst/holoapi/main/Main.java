@@ -17,7 +17,7 @@ import com.blackoutburst.holoapi.utils.HoloManager;
 
 public class Main extends JavaPlugin implements Listener {
 
-	public static List<APlayer> players = new ArrayList<APlayer>();
+	public static List<APlayer> players = new ArrayList<>();
 	
 	@Override
 	public void onEnable() {
@@ -27,6 +27,8 @@ public class Main extends JavaPlugin implements Listener {
 	@EventHandler
 	public void onMoveEvent(PlayerMoveEvent event) {
 		APlayer ap = APlayer.get(event.getPlayer());
+		if (ap == null) return;
+
 		for (Holo holo : ap.holos) {
 			double distance = Math.sqrt(
 					Math.pow(event.getPlayer().getLocation().getX() - holo.getLocation().getX(), 2) +
