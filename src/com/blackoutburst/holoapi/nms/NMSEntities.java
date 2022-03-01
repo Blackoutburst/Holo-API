@@ -102,6 +102,15 @@ public class NMSEntities {
     }
 
     /**
+     * Allow you to get the entity object
+     *
+     * @return the entity object
+     */
+    public Object getEntity() {
+        return entity;
+    }
+
+    /**
      * Allow you to get the entity ID
      *
      * @return the entity ID

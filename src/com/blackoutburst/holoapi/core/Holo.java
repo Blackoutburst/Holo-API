@@ -1,14 +1,15 @@
 package com.blackoutburst.holoapi.core;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
-
+import com.blackoutburst.holoapi.nms.NMSEntities;
 import net.minecraft.server.v1_8_R3.EntityArmorStand;
 import net.minecraft.server.v1_8_R3.WorldServer;
+import org.bukkit.Location;
+import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 
 public class Holo {
 
@@ -16,8 +17,8 @@ public class Holo {
 	protected String name;
 	protected Location location;
 	protected int entityId;
-	protected EntityArmorStand entity;
-	protected List<EntityArmorStand> lines;
+	protected NMSEntities entity;
+	protected List<NMSEntities> lines;
 	
 	public Holo (UUID uuid, String name) {
 		this.uuid = uuid;
@@ -55,11 +56,11 @@ public class Holo {
 		return (this);
 	}
 
-	public EntityArmorStand getEntity() {
+	public NMSEntities getEntity() {
 		return entity;
 	}
 
-	public Holo setEntity(EntityArmorStand entity) {
+	public Holo setEntity(NMSEntities entity) {
 		this.entity = entity;
 		return (this);
 	}
@@ -68,26 +69,36 @@ public class Holo {
 		return uuid;
 	}
 
-	public List<EntityArmorStand> getLines() {
+	public List<NMSEntities> getLines() {
 		return lines;
 	}
 
-	public Holo setLines(List<EntityArmorStand> lines) {
+	public Holo setLines(List<NMSEntities> lines) {
 		this.lines = lines;
 		return (this);
 	}
 	
 	public Holo addLine(String line) {
-		WorldServer s = ((CraftWorld) this.getLocation().getWorld()).getHandle();
-		
-		EntityArmorStand holoEntity = new EntityArmorStand(s);
-		holoEntity.setLocation(this.getLocation().getX(), this.getLocation().getY() - (0.25 * (this.getLines().size() + 1)), this.getLocation().getZ(), 0, 0);
-		holoEntity.setCustomName(line);
-		holoEntity.setCustomNameVisible(true);
-		holoEntity.setInvisible(true);
-		holoEntity.setSmall(true);
-		
-		this.lines.add(holoEntity);
+
+		try {
+			final NMSEntities entity = new NMSEntities(this.getLocation().getWorld(), NMSEntities.EntityType.ARMOR_STAND);
+
+			final Method setCustomName = entity.getEntity().getClass().getMethod("setCustomName", String.class);
+			final Method setCustomNameVisible = entity.getEntity().getClass().getMethod("setCustomNameVisible", boolean.class);
+			final Method setPosition = entity.getEntity().getClass().getMethod("setPosition", double.class, double.class, double.class);
+			final Method setInvisible = entity.getEntity().getClass().getMethod("setInvisible", boolean.class);
+			final Method setSmall = entity.getEntity().getClass().getMethod("setSmall", boolean.class);
+
+			setPosition.invoke(entity.getEntity(), this.getLocation().getX(), this.getLocation().getY() - (0.25 * (this.getLines().size() + 1)), this.getLocation().getZ());
+			setCustomName.invoke(entity.getEntity(), line);
+			setCustomNameVisible.invoke(entity.getEntity(), true);
+			setInvisible.invoke(entity.getEntity(), true);
+			setSmall.invoke(entity.getEntity(), true);
+
+			this.lines.add(entity);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return (this);
 	}
 	
