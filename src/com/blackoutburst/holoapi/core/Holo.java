@@ -8,7 +8,6 @@ import java.util.UUID;
 import com.blackoutburst.holoapi.nms.NMSEntities;
 import com.blackoutburst.holoapi.nms.NMSEntityMetadata;
 import com.blackoutburst.holoapi.nms.NMSEntityTeleport;
-import com.blackoutburst.holoapi.utils.HoloManager;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
