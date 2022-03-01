@@ -6,10 +6,8 @@ import java.util.List;
 import java.util.UUID;
 
 import com.blackoutburst.holoapi.nms.NMSEntities;
-import net.minecraft.server.v1_8_R3.EntityArmorStand;
-import net.minecraft.server.v1_8_R3.WorldServer;
+import com.blackoutburst.holoapi.utils.HoloManager;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 
 public class Holo {
 
@@ -23,7 +21,6 @@ public class Holo {
 		this.uuid = uuid;
 		this.name = name;
 		this.location = null;
-		this.entityId = -1;
 		this.entity = null;
 		this.lines = new ArrayList<>();
 	}
@@ -69,7 +66,6 @@ public class Holo {
 	}
 	
 	public Holo addLine(String line) {
-
 		try {
 			final NMSEntities entity = new NMSEntities(this.getLocation().getWorld(), NMSEntities.EntityType.ARMOR_STAND);
 
